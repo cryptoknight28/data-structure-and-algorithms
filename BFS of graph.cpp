@@ -33,32 +33,28 @@ Constraints:
 1 ≤ V, E ≤ 104
 */
 
-class Solution
+vector<int> bfsOfGraph(int V, vector<int> adj[])
 {
-public:
-  //Function to return Breadth First Traversal of given graph.
-  vector<int> bfsOfGraph(int V, vector<int> adj[])
-  {
-    vector<int> visited(V, 0);
-    visited[0] = 1;
-    queue<int> q;
-    q.push(0);
-    vector<int> ans;
+  vector<int> ans;
+  vector<int> visited(V, 0);
+  visited[0] = 1;
+  queue<int> q;
+  q.push(0);
 
-    while (q.size())
+  while (q.size())
+  {
+    auto curr = q.front();
+    q.pop();
+    ans.push_back(curr);
+
+    for (auto &i : adj[curr])
     {
-      auto curr = q.front();
-      q.pop();
-      ans.push_back(curr);
-      for (auto &i : adj[curr])
+      if (!visited[i])
       {
-        if (!visited[i])
-        {
-          visited[i] = 1;
-          q.push(i);
-        }
+        visited[i] = 1;
+        q.push(i);
       }
     }
-    return ans;
   }
-};
+  return ans;
+}
